@@ -1,0 +1,112 @@
+from rest_framework import serializers
+from .models import *
+from datetime import timedelta
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id','url','username','password','role','created_at','updated_at','deleted_at')
+        read_only_fields = ['url','role','created_at','updated_at','deleted_at']
+    
+    def validate(self, data):
+        instance = self.instance
+        username = data['username']
+        if instance:
+            if User.objects.filter(username=username, deleted_at__isnull = True).exclude(pk=instance.pk).exists():
+                raise serializers.ValidationError({"error_message":"Update: Ushbu username allaqachon band etilgan"})
+        else:
+            if User.objects.filter(username=username, deleted_at__isnull = True).exists():
+                raise serializers.ValidationError({"error_message":"Create: Ushbu username allaqachon band etilgan"})
+        return data
+    
+    def create(self, validated_data):
+        user = User(
+            username=validated_data['username'],
+            role="captain",
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+    
+    def update(self, instance, validated_data):
+        instance.username = validated_data.get('username', instance.username)
+        password = validated_data.get('password', None)
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+
+
+
+class TeamSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Team
+        fields = ['id','url','title','user','created_at','updated_at','deleted_at']
+        read_only_fields = ['created_at','updated_at','deleted_at']
+    
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        print('CREATE>>>>>>>>>>>>>>>>>>>>>>>>')
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        team = Team.objects.create(user=user, **validated_data)
+        return team 
+    
+    def update(self, instance, validated_data):
+        print('ozgartirish>>>>>>>>>>>>>>>>>>>>>>>>')
+
+        return super().update(instance, validated_data)
+
+    # def update(self, instance, validated_data):
+    #     user_data = validated_data.pop('user')
+    #     user_instance = instance.user
+    #     print('ozgartirish>>>>>>>>>>>>>>>>>>>>>>>>')
+    #     # Обновление данных пользователя с использованием UserSerializer
+    #     user_serializer = UserSerializer()
+    #     user_serializer.update(user_instance, user_data)
+
+    #     instance.title = validated_data.get('title', instance.title)
+    #     instance.updated_at = timezone.now().strftime('%d-%m-%Y %H:%M')
+    #     instance.save()
+        
+    #     return instance
+    
+
+class SubTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubTeam
+        fields = ['id','url','announcement','team','developers','created_at','updated_at','deleted_at']
+        read_only_fields = ['created_at','updated_at','deleted_at']
+
+    def validate(self, data):
+        team = data.get('team', None)
+        announcement = data.get('announcement')
+        developers = data.get('developers', None)
+        
+        if SubTeam.objects.filter(announcement=announcement, deleted_at__isnull = True).exists():
+            raise serializers.ValidationError({"error_message":"Tanlangan loyihani boshqalar bajarayapti"})
+            
+        for ids in developers:
+            if str(ids.team.id) != str(team.id):
+                raise serializers.ValidationError({"error_message":"Ushbu dasturchi(lar) tanlangan jamoaga tegishli emas"})
+
+        return data
+
+    
+
+class DeveloperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Developer
+        fields = ('id','url','fish','team','position','image','created_at','updated_at','deleted_at')
+        read_only_fields = ['created_at','updated_at','deleted_at']
+    
+    
+class DevelopersFromTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Developer
+        fields = ('id','url','fish','team','position','image','created_at','updated_at','deleted_at')
+        read_only_fields = ['created_at','updated_at','deleted_at']
+
+    

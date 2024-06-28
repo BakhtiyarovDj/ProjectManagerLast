@@ -1,0 +1,38 @@
+class UserSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = User
+        fields = ('id','url','username','password','role')
+
+        read_only_fields = ('role','url')
+ 
+    def create(self, validated_data):
+        user = User(
+            username=validated_data['username'],
+            role="captain",
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+    
+ 
+class TeamSerializer(serializers.ModelSerializer):
+    formatted_datetime = serializers.SerializerMethodField()
+    user = UserSerializer()
+    class Meta:
+        model = Team
+        fields = ['id','url','title','user','formatted_datetime','deleted_at']
+        read_only_fields = ['deleted_at']
+    
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        team = Team.objects.create(user=user, **validated_data)
+        return team
+    
+    
+    def get_formatted_datetime(self, obj):
+        adjusted_datetime = obj.created_at + timedelta(hours=5)
+        return adjusted_datetime.strftime('%d-%m-%Y %H:%M')
+
+

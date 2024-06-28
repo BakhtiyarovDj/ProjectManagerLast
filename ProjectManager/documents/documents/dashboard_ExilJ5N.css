@@ -1,0 +1,17 @@
+.navbar{
+    background-color: #194c86;
+}
+.navbar a{
+    color: #fff;
+}
+#logoutBtn i{
+    color: #fff;
+}
+#logoutBtn i:hover{
+    color: red;
+}
+#logoutBtn{
+    background-color: transparent; 
+    border: none; 
+    padding-right: 1.2rem;
+}

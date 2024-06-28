@@ -1,0 +1,23 @@
+timezone +5
+header account login
+
+announcement.html:
+create work request
+
+
+Jamoalar.html:
+go to developer detail in team detail
+
+Jamoam.html:
+keraksiz fieldlar o'chirish
+
+
+requests.html:
+modal qoshish. developerdan kopiya :done
+announcement detail view
+
+
+headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`} везде
+refreshAccessToken() везде
+
+o'chganlar uchun joy
