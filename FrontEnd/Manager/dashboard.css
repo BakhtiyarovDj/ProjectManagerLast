@@ -6,19 +6,14 @@
     color: #fff;
 }
 
-#logoutBtn i {
-    color: #fff;
-}
-
-#logoutBtn i:hover {
-    color: red;
-}
-
 #logoutBtn {
     background-color: transparent;
     border: none;
     padding: 0;
     color: #fff;
+}
+#logoutBtn:hover {
+    color: #000000;
 }
 
 #profile-btn {

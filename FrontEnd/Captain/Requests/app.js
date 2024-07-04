@@ -33,8 +33,7 @@ async function fetchRequests(searching_project_name, status) {
             'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         }
     });
-    localStorage.setItem('teamTitle', teamTitle);
-    localStorage.setItem('global_team_id', global_team_id);
+    
 
     const subTeamData = subTeamListResponse.data
     var workRequestsData = myWorkRequestResponse.data.filter(item => item.status === status);

@@ -19,14 +19,6 @@
     margin-top: 50px;
     margin-left: 100px;
 }
-table, tr, th, td{
-    background-color: rgb(99, 157, 238);
-    border: 1px solid black;
-    text-align: center;
-    border-collapse: collapse;
-    margin: 70px 10px 5px 135px;
-    padding: 15px 60px;
-}
 
 .guruh-nomi{
     letter-spacing: 2px ;
@@ -207,3 +199,11 @@ table, tr, th, td{
     padding-right: 1.2rem;
 }
 
+.btn-circle {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 24px;
+    padding: 0;
+}

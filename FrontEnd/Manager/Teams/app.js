@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         </div>
                     `;
                 });
-    
+
                 document.getElementById("main").innerHTML = html;
             }
             else {
@@ -51,29 +51,28 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 })
 
-document.getElementById('qoshish').addEventListener('click', function (event) {
-    console.log("+++++++++++++++++++++++++++++++");
+document.getElementById('qoshish').addEventListener('click', async function (event) {
+    const adding_team_id = 0
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const firstName = document.getElementById('first_name').value;
     const lastName = document.getElementById('last_name').value;
     const title = document.getElementById('title').value;
 
-    axios.post(`${users_url}/users/teamlist/create`, {
+    await axios.post(`${users_url}/users/teamlist/create`, {
         username: username,
         password: password,
         title: title,
         first_name: firstName,
         last_name: lastName
-    },{
+    }, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('access_token')
         }
     })
         .then(async function (teamAndUserCreateResponce) {
-            await refreshAccessToken()
-            alert(teamAndUserCreateResponce.data.message)
-            location.reload();
+            adding_team_id = teamAndUserCreateResponce.data.team.id
+            alert(teamAndUserCreateResponce.data.team.id)
         })
         .catch(function (teamAndUserCreateError) {
             console.error(teamAndUserCreateError)

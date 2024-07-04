@@ -3,12 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../bootstrap-icons-1.5.0/bootstrap-icons.css">
+    <title>Kerakli ishchi</title>
+    <link rel="stylesheet" href="vacancies.css">
     <link rel="stylesheet" href="../../bs/css/bootstrap.min.css">
-    <link rel="stylesheet" href="profile.css">
-    <title>Shaxsiy kabinet</title>
+    <link rel="stylesheet" href="../../bootstrap-icons-1.5.0/bootstrap-icons.css">
 </head>
 
 <body>
@@ -30,29 +29,24 @@
                         <a class="nav-link" href="../Requests/requests.html">Takliflar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../Vacancies/vacancies.html">Kerakli ishchilar</a>
+                        <a class="nav-link active" href="../Vacancies/vacancies.html">Kerakli ishchilar</a>
                     </li>
                 </ul>
             </div>
-            <div class="profile-box">
-                <div id="drop-list" class="dropdown">
-                    <button id="profile-btn" class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bi bi-person-square h4 my-3 text-white"></i>
-                    </button>
-                    <ul class="dropdown-menu border ">
-                        <li><a class="dropdown-item text-center" href="#">Profil</a></li>
-                        <li>
-                            <p class="dropdown-item text-center p-1 m-0"><button id="logoutBtn">Chiqish</button></p>
-                        </li>
-                    </ul>
-                </div>
+            <div>
+                <button id="logoutBtn"><i class="bi bi-box-arrow-left h2 my-3"></i></button>
             </div>
         </nav>
     </header>
 
-    
 
+    <div class="main p-5">
+        <div class="shadow">
+            <div class="d-flex justify-content-center flex-wrap py-3" id="vacancies_list">
+                <!-- vacancies_list -->
+            </div>
+        </div>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

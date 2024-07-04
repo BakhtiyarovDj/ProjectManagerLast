@@ -34,6 +34,7 @@ async function loadAnnouncements(searchingProjectName,searchingProjectType) {
                     <p><strong>Deadline:</strong> <span id="deadline">${item.deadline}</span></p>
                     <p><strong>Cost:</strong> <span id="cost">${item.cost}</span></p>
                 </div>
+              
                 <div class="btn-container">
                     <button id="detailBtn_${item.id}" class="btn btn-info mx-4 mt-0">Batafsil</button>
                 </div>  

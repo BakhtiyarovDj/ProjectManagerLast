@@ -216,7 +216,7 @@ async function getDevInfo(dev_id) {
             </div>
             <div class="section m-0">
                 <p><strong>Familiya:</strong> ${devInfo.fish.split(' ')[0]}</p>
-                <p><strong>Ism:</strong> ${devInfo.fish.split(' ')[1]}</p>
+                <p><strong>Ism:</strong> ${devInfo.fish.split(' ')[1] ? devInfo.fish.split(' ')[1] : '?'}</p>
             </div>
             <div class="section m-0">
                 <p><strong>Yo'nalishi:</strong> ${capitalize(devInfo.position)}</p>

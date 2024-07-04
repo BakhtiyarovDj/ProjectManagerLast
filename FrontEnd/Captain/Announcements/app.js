@@ -30,7 +30,7 @@ async function loadAnnouncements(searchingProjectName, searchingProjectType) {
                     <p><strong>Deadline:</strong> <span id="deadline">${item.deadline}</span></p>
                     <p><strong>Narx:</strong> <span id="cost">${item.cost}</span></p>
                 </div> 
-                <div class="section  m-0 pb-0"> 
+                <div class="section m-0 pb-0"> 
                     <p><strong>Izoh:</strong> <span style="display: inline-block; max-width: 80%; word-wrap: break-word;" id="description">${item.description}</span></p>
                 </div>`
                 if (item.document.file || item.document.file2 || item.document.file3) {

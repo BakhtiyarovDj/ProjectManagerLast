@@ -49,10 +49,14 @@ async function fillStats() {
     frontend_count.innerHTML = `<strong>${dev_data.filter(item => item.position.toLowerCase() == 'frontend').length}</strong> FrontEndchi`
     backend_count.innerHTML = `<strong>${dev_data.filter(item => item.position.toLowerCase() == 'backend').length}</strong> BackEndchi`
     designer_count.innerHTML = `<strong>${dev_data.filter(item => item.position.toLowerCase() == 'designer').length}</strong> Dizayner`
+
+
+    const employmentData = (await axios.get(`${api_url}/users/team-employment/`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
+    })).data;
+    console.log(employmentData);
+    busy_count.innerHTML = `<strong>${employmentData.filter(item => item.status == 'busy').length}</strong> Band jamoalar`
 }
-
-
-
 
 async function refreshAccessToken() {
     const refresh_token = localStorage.getItem('refresh_token');
