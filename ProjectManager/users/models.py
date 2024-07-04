@@ -89,3 +89,10 @@ class Employment(models.Model):
     team = models.ForeignKey("Team", on_delete=models.CASCADE) 
     status = models.CharField(max_length=50, choices=[('busy', 'Band'), ('free', 'Bosh')], default='free')
     
+
+class Vacancies(models.Model):
+    team = models.ForeignKey("Team", on_delete=models.CASCADE) 
+    position = models.CharField(max_length=30,null=True)
+    description = models.CharField(max_length=400,null=True)
+    created_at = models.CharField(max_length=20,default=timezone.now().strftime('%d-%m-%Y %H:%M'))
+    deleted_at = models.CharField(max_length=20,null=True)

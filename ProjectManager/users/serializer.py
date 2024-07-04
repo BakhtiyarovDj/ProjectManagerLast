@@ -68,3 +68,9 @@ class EmploymentSerializer(serializers.ModelSerializer):
         fields = ('id','team','status')
 
 
+class VacanciesSerializer(serializers.ModelSerializer):
+    team = TeamSerializer
+    class Meta:
+        model = Vacancies
+        fields = ('id','team','position','description','created_at','deleted_at')
+        read_only_fields = ['created_at','deleted_at']

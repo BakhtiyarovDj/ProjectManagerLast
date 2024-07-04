@@ -75,7 +75,7 @@ def create_team_user(request):
             team.updated_at = timezone.now().strftime('%d-%m-%Y %H:%M')
             team.save()
 
-            return JsonResponse({'message': 'Team and user created successfully'}, status=200)
+            return JsonResponse({'message': 'Team and user created successfully','team':team}, status=200)
         except Exception as e:
             if 'username' in str(e):
                 return JsonResponse({'message': "Ushbu kiritilgan username allaqachon band bo'lgan"}, status=200)
@@ -126,7 +126,6 @@ class DevelopersFromTeamAPIView(generics.ListAPIView):
         id = self.kwargs['pk']
         teamtitle = self.kwargs['teamtitle']
         team = Team.objects.get(pk=id,title=teamtitle,deleted_at__isnull=True)
-        print(team)
         return Developer.objects.filter(team=team,deleted_at__isnull=True)
     permission_classes = [IsAuthenticated]
 
@@ -180,19 +179,30 @@ class LogoutView(APIView):
             return Response({"status":f"{e}"},status=status.HTTP_400_BAD_REQUEST)
         
     
-class EmploymentAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-    serializer = EmploymentSerializer
-    
-    
+class EmploymentAPIView(generics.ListCreateAPIView):
+    queryset = Employment.objects.all()
+    permission_classes = []
+    serializer_class = EmploymentSerializer     
         
-class EmploymentChangeAPIView(APIView):
+class EmploymentChangeAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Employment.objects.all()
     permission_classes = [IsAuthenticated]
     
-    def post(self, request, teamid):
-        employment = get_object_or_404(Employment, team_id=teamid)
+    def patch(self, request, pk):
+        employment = get_object_or_404(Employment, team=pk)
         employment.status = request.data.get('status')
         employment.save()
+        print(employment.status)
         return Response({'status': 'success'}, status=status.HTTP_200_OK)
         
+
+class VacanciesAPIView(generics.ListCreateAPIView):
+    queryset = Vacancies.objects.all()
+    serializer_class = VacanciesSerializer
+    permission_classes = [IsAuthenticated]
+
+class VacanciesDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Vacancies.objects.all()
+    serializer_class = VacanciesSerializer 
+    permission_classes = [IsAuthenticated]
     

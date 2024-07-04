@@ -16,11 +16,10 @@ urlpatterns = [
     path('developer/', DeveloperCreateAPIView.as_view(), name='developer'),
     path('developer/<int:pk>', DeveloperDetailView.as_view(), name='developer-detail'),
     path('developer/<str:teamtitle>/<int:pk>', DevelopersFromTeamAPIView.as_view()),
-
     path('getteamdatafromuser/<int:pk>/', GetTeamFromUserIDView.as_view()), 
-
-    path('employment/', EmploymentAPIView.as_view()), 
-
-    path('employment/<int:teamid>', EmploymentChangeAPIView.as_view()), 
+    path('team-employment/', EmploymentAPIView.as_view()), 
+    path('team-employment/team/<int:pk>', EmploymentChangeAPIView.as_view()), 
+    path('vacancies/', VacanciesAPIView.as_view()), 
+    path('vacancies/<int:pk>/', VacanciesDeleteAPIView.as_view())
 
 ] 
